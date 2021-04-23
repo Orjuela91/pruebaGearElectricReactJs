@@ -11,6 +11,7 @@ function App() {
   const [errorAxios, setErrorAxios] = React.useState(null);
 
   const [asistentesPhp, setAsistentesPhp] = React.useState(null);
+  const [asistentesJava, setAsistentesJava] = React.useState(null);
 
   const getAsistentes = () => {
     axios.get("http://localhost:46665/api/Asistentes/GetAsistentes")
@@ -36,9 +37,22 @@ function App() {
 
   }
 
+  const getAsistentesJava = () => {
+
+    axios.get("http://localhost:8080/api/asistentes/getAsistentes")
+    .then((response) => {
+      const asistentesApi = response.data;
+      setAsistentesJava(asistentesApi);
+    }).catch((error) => {
+      setErrorAxios(error);
+    })
+    
+  }
+
   React.useEffect(() => {
     getAsistentes();
     getAsistentesPhp();
+    getAsistentesJava();
   }, []);
 
   return (
@@ -50,6 +64,9 @@ function App() {
         <h1>Back PHP</h1>
         <Formulario back={"php"} />
         <Asistentes asistentes={asistentesPhp}></Asistentes>
+        <h1>Back JAVA</h1>
+        <Formulario back={"java"} />
+        <Asistentes asistentes={asistentesJava}></Asistentes>
       </MDBContainer>
     </div>
   );

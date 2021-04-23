@@ -48,8 +48,18 @@ function Formulario(props) {
                         }).catch((error) => {
                             console.log("error:", error);
                         });
-                } else {
+                } else if(props.back === "php"){
                     axios.post("http://127.0.0.1:8000/api/asistentes/newAsistente", {
+                        tipoDocumento, documento,
+                        nombre, telefono, correo
+                    })
+                        .then((response) => {
+                            console.log(response);
+                        }).catch((error) => {
+                            console.log("error:", error);
+                        });
+                } else {
+                    axios.post("http://localhost:8080/api/asistentes/newAsistente", {
                         tipoDocumento, documento,
                         nombre, telefono, correo
                     })
